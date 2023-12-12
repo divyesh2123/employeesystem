@@ -8,7 +8,10 @@ const authfetch = axios.create({
 
 authfetch.interceptors.request.use((requ)=>{
 
-    requ.headers["Content-Type"] = "application/json"
+    console.log(JSON.parse(localStorage.getItem("userInfo")).jwtToken);
+    requ.headers["Content-Type"] = "application/json";
+    requ.headers["Authorization"] = "bearer " + 
+    JSON.parse(localStorage.getItem("userInfo")).jwtToken;
 
     return requ;
 
@@ -24,7 +27,9 @@ authfetch.interceptors.response.use((response)=>{
 
     if(response.status == 200)
     {
-       
+            if(response.data.message)
+            {
+
             toast.success(`${response.data.message}`, {
               position: "top-center",
               autoClose: false,
@@ -34,8 +39,26 @@ authfetch.interceptors.response.use((response)=>{
               draggable: true,
               progress: 0,
               });  
+
+            }
+            else if(response.config.url.includes("authenticate"))
+            {
+                toast.success(`login sucess`, {
+                    position: "top-center",
+                    autoClose: false,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: 0,
+                    });  
+
+
+            }
           
     }
+
+   
 
     if(response.status == 400)
     {
@@ -51,10 +74,12 @@ authfetch.interceptors.response.use((response)=>{
 
     }
 
-
+    return response;
 },(error)=>{
 
-    if(error.response.status == 400)
+    debugger;
+
+    if(error?.response?.status == 400)
     {
         toast.error(`${error.response.data.message}`, {
             position: "top-center",
