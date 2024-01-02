@@ -8,10 +8,14 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import EmployeeGrid from './components/EmployeeGrid';
 import MyGrid from './components/MyGrid';
+import LanguageContext from './LanguageContext';
+import { useState } from 'react';
 function App() {
+
+  const [lan,setlan]= useState('en')
   return (
    
-<>
+<LanguageContext.Provider  value={{lan,setlan}}>
  
 
       <ApplicationNav/>
@@ -25,7 +29,7 @@ function App() {
 
       </Routes>
 
-      </>
+      </LanguageContext.Provider>
   );
 }
 
