@@ -8,9 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Display1 from './Display1';
+import { Provider } from 'react-redux';
+import store from './store/store';
+import MyCounter from './MyCounter';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+  <Provider store={store}>
   <ToastContainer
     position="top-center"
     autoClose={5000}
@@ -23,6 +27,10 @@ root.render(
     pauseOnHover
     />
   <App/>
+
+  <MyCounter/>
+
+  </Provider>
   </BrowserRouter>
 );
 

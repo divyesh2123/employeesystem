@@ -10,9 +10,15 @@ import EmployeeGrid from './components/EmployeeGrid';
 import MyGrid from './components/MyGrid';
 import LanguageContext from './LanguageContext';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 function App() {
 
   const [lan,setlan]= useState('en')
+
+  const data = useSelector(y=>y);
+
+  alert(data);
+
   return (
    
 <LanguageContext.Provider  value={{lan,setlan}}>
